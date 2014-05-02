@@ -1,6 +1,6 @@
 from Tkinter import *
 from config import *
-#from pymailer import PyMailer
+from pymailer import PyMailer
 
 class Gui:
     def __init__(self):
@@ -74,6 +74,12 @@ class Gui:
         self._host_entry.delete(0, END)
         self._port_entry.delete(0, END)
         self._subject_entry.delete(0, END)
+    
+    def _update_config(self):
+        FROM_NAME = self._name_entry.get()
+        FROM_EMAIL = self._email_entry.get()
+        SMTP_HOST = self._host_entry.get()
+        SMTP_PORT = self._port_entry.get()
 
 
     def _html_file_chooser(self):
