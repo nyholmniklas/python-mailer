@@ -1,4 +1,5 @@
 from Tkinter import *
+from config import *
 #from pymailer import PyMailer
 
 class Gui:
@@ -7,11 +8,12 @@ class Gui:
         self.root.geometry("500x500")
         self.root.title("python-mailer")
         self._mailer = None
-        self._init_components()
-        self._layout_components()
+        self._init_widgets()
+        self._layout_widgets()
+        self._update_widgets()
         self.root.mainloop()
         
-    def _init_components(self):
+    def _init_widgets(self):
         #Init frames
         self._input_frame = Frame(self.root, width = "240");
         
@@ -35,7 +37,7 @@ class Gui:
         self._html_button = Button(self._input_frame, text='Select HTML File', command=self._html_file_chooser)
         self._csv_button = Button(self._input_frame, text='Select CSV File', command=self._csv_file_chooser)
     
-    def _layout_components(self): 
+    def _layout_widgets(self): 
         #Layout frame
         self._input_frame.pack(pady=15, padx=15)
         
@@ -59,6 +61,21 @@ class Gui:
         self._html_button.grid(row=3, column=1, padx=5, pady=5, sticky=W)
         self._csv_button.grid(row=3, column=3, padx=5, pady=5, sticky=W)
         
+    def _update_widgets(self):
+        self._clear_widgets()
+        self._name_entry.insert(0, FROM_NAME)
+        self._email_entry.insert(0, FROM_EMAIL)
+        self._host_entry.insert(0, SMTP_HOST)
+        self._port_entry.insert(0, SMTP_PORT)
+        
+    def _clear_widgets(self):
+        self._name_entry.delete(0, END)
+        self._email_entry.delete(0, END)
+        self._host_entry.delete(0, END)
+        self._port_entry.delete(0, END)
+        self._subject_entry.delete(0, END)
+
+
     def _html_file_chooser(self):
         #TODO
         print("TODO")
