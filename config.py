@@ -13,6 +13,9 @@ STATS_FILE = '/tmp/pymailer-%s.stat' % str(datetime.now()).replace(' ', '-').rep
 # smtp settings
 SMTP_HOST = 'localhost'
 SMTP_PORT = '25'
+AUTH_SMTP = False
+USERNAME = ''
+PASSWORD = ''
 
 # the address and name the email comes from
 FROM_NAME = 'Comapny Name'
