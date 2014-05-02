@@ -23,12 +23,15 @@ class PyMailer():
     of the email; email adsress the mail comes from; and the name the email is
     from. 
     """
-    def __init__(self, html_path, csv_path, subject):
+    def __init__(self, html_path, csv_path, subject, username="", password=""):
         self.html_path = html_path
         self.csv_path = csv_path
         self.subject = subject
         self.from_name = FROM_NAME
         self.from_email = FROM_EMAIL
+        if ((username != "") & (password != "")):
+            self.username = username
+            self.password = password
         
     def _stats(self, message):
         """
@@ -170,6 +173,11 @@ class PyMailer():
         csv_file.close()
         return recipient_data_list
     
+    def _is_auth_smtp(self):
+        if ((self.username != None) & (self.password != None)):
+            return true
+        return false
+    
     def send(self, retry_count=0, recipient_list=None):
         """
         Iterate over the recipient list and send the specified email. 
@@ -187,6 +195,9 @@ class PyMailer():
         # instantiate the number of falied recipients
         failed_recipients = 0
         
+        #Check if we are using username and password
+        auth_smtp = self._is_auth_smtp()
+        
         for recipient_data in recipient_list:
             # instantiate the required vars to send email
             message = self._form_email(recipient_data)
@@ -198,6 +209,10 @@ class PyMailer():
             
             # send the actual email
             smtp_server = smtplib.SMTP(host=SMTP_HOST, port=SMTP_PORT)
+            
+            #Login if we are using auth smtp
+            smtp_server.login(self.username, self.password)
+            
             try:
                 smtp_server.sendmail(sender, recipient, message)
                 
