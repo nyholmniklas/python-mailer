@@ -25,6 +25,8 @@ class Gui:
         self._host_label = Label(self._input_frame, text="Host: ")
         self._port_label = Label(self._input_frame, text="Port: ")
         self._subject_label = Label(self._input_frame, text="Subject: ")
+        self._username_label = Label(self._input_frame, text="Username: ")
+        self._password_label = Label(self._input_frame, text="Password: ")
         
         #Init entry widgets
         self._name_entry = Entry(self._input_frame)
@@ -32,6 +34,11 @@ class Gui:
         self._host_entry = Entry(self._input_frame)
         self._port_entry = Entry(self._input_frame)
         self._subject_entry = Entry(self._input_frame)
+        self._username_entry = Entry(self._input_frame)
+        self._password_entry = Entry(self._input_frame, show="*")
+        
+        #Init checkbox
+        self._auth_checkbox = Checkbutton(self._input_frame, text="Use authentication")
         
         #Init buttons
         self._html_button = Button(self._input_frame, text='Select HTML File', command=self._html_file_chooser)
@@ -49,6 +56,8 @@ class Gui:
         self._host_label.grid(row=0, column=2, padx=5, pady=5, sticky=W)
         self._port_label.grid(row=1, column=2, padx=5, pady=5, sticky=W)
         self._subject_label.grid(row=2, column=0, padx=5, pady=5, sticky=W)
+        self._username_label.grid(row=4, column=0, padx=5, pady=5, sticky=W)
+        self._password_label.grid(row=4, column=2, padx=5, pady=5, sticky=W)
         
         #Layout entry widgets
         self._name_entry.grid(row=0, column=1, padx=5, pady=5, sticky=W)
@@ -56,6 +65,11 @@ class Gui:
         self._host_entry.grid(row=0, column=3, padx=5, pady=5, sticky=W)
         self._port_entry.grid(row=1, column=3, padx=5, pady=5, sticky=W)
         self._subject_entry.grid(row=2, column=1, padx=5, pady=5, sticky=W)
+        self._username_entry.grid(row=4, column=1, padx=5, pady=5, sticky=W)
+        self._password_entry.grid(row=4, column=3, padx=5, pady=5, sticky=W)
+        
+        #Layout checkbox
+        self._auth_checkbox.grid(row=5, column=0, padx=5, pady=5, sticky=W)
         
         #Layout buttons
         self._html_button.grid(row=3, column=1, padx=5, pady=5, sticky=W)
