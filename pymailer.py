@@ -21,7 +21,8 @@ class PyMailer():
     A python bulk mailer commandline utility. Takes five arguments: the path to
     the html file to be parsed; the database of recipients (.csv); the subject
     of the email; email adsress the mail comes from; and the name the email is
-    from. 
+    from. Username and password are optional. 
+    If given credentials are given PyMailer will use auth smtp.
     """
     def __init__(self, html_path, csv_path, subject, username="", password=""):
         self.html_path = html_path
@@ -211,7 +212,8 @@ class PyMailer():
             smtp_server = smtplib.SMTP(host=SMTP_HOST, port=SMTP_PORT)
             
             #Login if we are using auth smtp
-            smtp_server.login(self.username, self.password)
+            if (auth_smtp):
+                smtp_server.login(self.username, self.password)
             
             try:
                 smtp_server.sendmail(sender, recipient, message)
