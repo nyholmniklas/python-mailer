@@ -29,11 +29,11 @@ class Gui:
         self._password_label = Label(self._input_frame, text="Password: ")
         
         #Init entry widgets
-        self._name_entry = Entry(self._input_frame)
-        self._email_entry = Entry(self._input_frame)
+        self._name_entry = Entry(self._input_frame, width=30)
+        self._email_entry = Entry(self._input_frame, width=30)
         self._host_entry = Entry(self._input_frame)
         self._port_entry = Entry(self._input_frame)
-        self._subject_entry = Entry(self._input_frame)
+        self._subject_entry = Entry(self._input_frame, width=30)
         self._username_entry = Entry(self._input_frame)
         self._password_entry = Entry(self._input_frame, show="*")
         
