@@ -38,7 +38,10 @@ class Gui:
         self._password_entry = Entry(self._input_frame, show="*")
         
         #Init checkbox
-        self._auth_checkbox = Checkbutton(self._input_frame, text="Use authentication")
+        self._auth_checkbox_checked = BooleanVar()
+        self._auth_checkbox_checked.set(AUTH_SMTP)
+        self._auth_checkbox = Checkbutton(self._input_frame, text="Use authentication", onvalue=True, offvalue=False, var=self._auth_checkbox_checked)
+        self._auth_checkbox.configure(command=self._auth_checkbox_pressed)
         
         #Init buttons
         self._html_button = Button(self._input_frame, text='Select HTML File', command=self._html_file_chooser)
@@ -75,15 +78,23 @@ class Gui:
         self._html_button.grid(row=3, column=1, padx=5, pady=5, sticky=W)
         self._csv_button.grid(row=4, column=1, padx=5, pady=5, sticky=W)
         
+    #Clear the widgets, assign values from config to widgets and update auth
     def _update_widgets(self):
         self._clear_widgets()
         self._name_entry.insert(0, FROM_NAME)
         self._email_entry.insert(0, FROM_EMAIL)
         self._host_entry.insert(0, SMTP_HOST)
         self._port_entry.insert(0, SMTP_PORT)
-        self._username_entry.delete(0, USERNAME)
-        self._password_entry.delete(0, PASSWORD)
-        
+        self._username_entry.insert(0, USERNAME)
+        self._password_entry.insert(0, PASSWORD)
+        if (AUTH_SMTP):
+            self._auth_checkbox_checked.set(True)
+        else:
+            self._auth_checkbox_checked.set(False)
+        self._update_login_entries_enabled()
+    
+
+    #Clear all the entry widgets
     def _clear_widgets(self):
         self._name_entry.delete(0, END)
         self._email_entry.delete(0, END)
@@ -93,14 +104,28 @@ class Gui:
         self._username_entry.delete(0, END)
         self._password_entry.delete(0, END)
     
+    #Assign values from entry widgets to config variables
     def _update_config(self):
+        global FROM_NAME, FROM_EMAIL, SMTP_HOST, SMTP_PORT, USERNAME, PASSWORD, AUTH_SMTP
         FROM_NAME = self._name_entry.get()
         FROM_EMAIL = self._email_entry.get()
         SMTP_HOST = self._host_entry.get()
         SMTP_PORT = self._port_entry.get()
         USERNAME = self._username_entry.get()
         PASSWORD = self._password_entry.get()
-
+        AUTH_SMTP = self._auth_checkbox_checked.get()
+    
+    def _update_login_entries_enabled(self):
+        if (AUTH_SMTP):
+            self._username_entry.configure(state='normal')
+            self._password_entry.configure(state='normal')
+        else:
+            self._username_entry.configure(state='disabled')
+            self._password_entry.configure(state='disabled')
+            
+    def _auth_checkbox_pressed(self):
+        self._update_config()
+        self._update_widgets()
 
     def _html_file_chooser(self):
         #TODO
