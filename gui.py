@@ -115,6 +115,7 @@ class Gui:
         PASSWORD = self._password_entry.get()
         AUTH_SMTP = self._auth_checkbox_checked.get()
     
+    #Enable or disable the login entries depending on config variable AUTH_SMTP
     def _update_login_entries_enabled(self):
         if (AUTH_SMTP):
             self._username_entry.configure(state='normal')
@@ -123,6 +124,7 @@ class Gui:
             self._username_entry.configure(state='disabled')
             self._password_entry.configure(state='disabled')
             
+    #This function is given as command to auth_checkbox and is called when the checkbox is clicked
     def _auth_checkbox_pressed(self):
         self._update_config()
         self._update_widgets()
