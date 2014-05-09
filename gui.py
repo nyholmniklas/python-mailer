@@ -46,6 +46,7 @@ class Gui:
         #Init buttons
         self._html_button = Button(self._input_frame, text='Select HTML File', command=self._html_file_chooser, width=25)
         self._csv_button = Button(self._input_frame, text='Select CSV File', command=self._csv_file_chooser, width=25)
+        self._send_button = Button(self._input_frame, text='Send', command=self._send_button_pressed)
     
     def _layout_widgets(self): 
         #Layout frame
@@ -77,6 +78,7 @@ class Gui:
         #Layout buttons
         self._html_button.grid(row=3, column=1, padx=5, pady=5, sticky=W)
         self._csv_button.grid(row=4, column=1, padx=5, pady=5, sticky=W)
+        self._send_button.grid(row=5, column=3, padx=10, pady=10, sticky=E)
         
     #Clear the widgets, assign values from config to widgets and update auth
     def _update_widgets(self):
@@ -134,6 +136,10 @@ class Gui:
         print("TODO")
         
     def _csv_file_chooser(self):
+        #TODO
+        print("TODO")
+        
+    def _send_button_pressed(self):
         #TODO
         print("TODO")
 
