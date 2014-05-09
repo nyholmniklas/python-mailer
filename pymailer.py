@@ -174,11 +174,6 @@ class PyMailer():
         csv_file.close()
         return recipient_data_list
     
-    def _is_auth_smtp(self):
-        if ((self.username != None) & (self.password != None)):
-            return true
-        return false
-    
     def send(self, retry_count=0, recipient_list=None):
         """
         Iterate over the recipient list and send the specified email. 
@@ -196,8 +191,6 @@ class PyMailer():
         # instantiate the number of falied recipients
         failed_recipients = 0
         
-        #Check if we are using username and password
-        auth_smtp = self._is_auth_smtp()
         
         for recipient_data in recipient_list:
             # instantiate the required vars to send email
@@ -211,8 +204,8 @@ class PyMailer():
             # send the actual email
             smtp_server = smtplib.SMTP(host=SMTP_HOST, port=SMTP_PORT)
             
-            #Login if we are using auth smtp
-            if (auth_smtp):
+            #Login if config variable AUTH_SMTP is True
+            if (AUTH_SMTP):
                 smtp_server.login(self.username, self.password)
             
             try:
