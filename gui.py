@@ -81,6 +81,8 @@ class Gui:
         self._email_entry.insert(0, FROM_EMAIL)
         self._host_entry.insert(0, SMTP_HOST)
         self._port_entry.insert(0, SMTP_PORT)
+        self._username_entry.delete(0, USERNAME)
+        self._password_entry.delete(0, PASSWORD)
         
     def _clear_widgets(self):
         self._name_entry.delete(0, END)
@@ -88,12 +90,16 @@ class Gui:
         self._host_entry.delete(0, END)
         self._port_entry.delete(0, END)
         self._subject_entry.delete(0, END)
+        self._username_entry.delete(0, END)
+        self._password_entry.delete(0, END)
     
     def _update_config(self):
         FROM_NAME = self._name_entry.get()
         FROM_EMAIL = self._email_entry.get()
         SMTP_HOST = self._host_entry.get()
         SMTP_PORT = self._port_entry.get()
+        USERNAME = self._username_entry.get()
+        PASSWORD = self._password_entry.get()
 
 
     def _html_file_chooser(self):
