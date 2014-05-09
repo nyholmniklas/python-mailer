@@ -44,8 +44,8 @@ class Gui:
         self._auth_checkbox.configure(command=self._auth_checkbox_pressed)
         
         #Init buttons
-        self._html_button = Button(self._input_frame, text='Select HTML File', command=self._html_file_chooser)
-        self._csv_button = Button(self._input_frame, text='Select CSV File', command=self._csv_file_chooser)
+        self._html_button = Button(self._input_frame, text='Select HTML File', command=self._html_file_chooser, width=25)
+        self._csv_button = Button(self._input_frame, text='Select CSV File', command=self._csv_file_chooser, width=25)
     
     def _layout_widgets(self): 
         #Layout frame
@@ -59,8 +59,8 @@ class Gui:
         self._host_label.grid(row=0, column=2, padx=5, pady=5, sticky=W)
         self._port_label.grid(row=1, column=2, padx=5, pady=5, sticky=W)
         self._subject_label.grid(row=2, column=0, padx=5, pady=5, sticky=W)
-        self._username_label.grid(row=2, column=2, padx=5, pady=5, sticky=W)
-        self._password_label.grid(row=3, column=2, padx=5, pady=5, sticky=W)
+        self._username_label.grid(row=3, column=2, padx=5, pady=5, sticky=W)
+        self._password_label.grid(row=4, column=2, padx=5, pady=5, sticky=W)
         
         #Layout entry widgets
         self._name_entry.grid(row=0, column=1, padx=5, pady=5, sticky=W)
@@ -68,11 +68,11 @@ class Gui:
         self._host_entry.grid(row=0, column=3, padx=5, pady=5, sticky=W)
         self._port_entry.grid(row=1, column=3, padx=5, pady=5, sticky=W)
         self._subject_entry.grid(row=2, column=1, padx=5, pady=5, sticky=W)
-        self._username_entry.grid(row=2, column=3, padx=5, pady=5, sticky=W)
-        self._password_entry.grid(row=3, column=3, padx=5, pady=5, sticky=W)
+        self._username_entry.grid(row=3, column=3, padx=5, pady=5, sticky=W)
+        self._password_entry.grid(row=4, column=3, padx=5, pady=5, sticky=W)
         
         #Layout checkbox
-        self._auth_checkbox.grid(row=4, column=3, padx=5, pady=5, sticky=W)
+        self._auth_checkbox.grid(row=2, column=3, padx=5, pady=5)
         
         #Layout buttons
         self._html_button.grid(row=3, column=1, padx=5, pady=5, sticky=W)
