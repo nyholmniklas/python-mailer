@@ -169,7 +169,7 @@ class ViewModel():
         self.password = PASSWORD
         self.auth = AUTH_SMTP
         self.subject = ""
-        
+    
     
 #MAIN
 if __name__ == '__main__':

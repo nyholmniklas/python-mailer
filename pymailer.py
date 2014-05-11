@@ -201,13 +201,14 @@ class PyMailer():
                 recipient = recipient_data.get('email')
             sender = "%s <%s>" % (self.from_name, self.from_email)
             
-            # send the actual email
+            # init server
             smtp_server = smtplib.SMTP(host=SMTP_HOST, port=SMTP_PORT)
             
-            #Login if config variable AUTH_SMTP is True
+            # login if config variable AUTH_SMTP is True
             if (AUTH_SMTP):
                 smtp_server.login(self.username, self.password)
             
+            #send the actual email
             try:
                 smtp_server.sendmail(sender, recipient, message)
                 
