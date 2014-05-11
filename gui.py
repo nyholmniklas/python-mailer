@@ -1,8 +1,7 @@
 from Tkinter import *
 from config import *
-from pymailer import PyMailer
 
-class Gui:
+class View:
     def __init__(self, presenter):
         self.root = Tk()
         self.root.geometry("600x500")
@@ -87,64 +86,64 @@ class Presenter():
 
     def __init__(self):
         self.model = ViewModel()
-    
-    def set_gui(self, gui):
-        self.gui = gui
-        
+
+    def set_view(self, view):
+        self.view = view
+
     def update(self):
-        self._update_widgets()
+        self._update_view()
         self._update_model()
-    
+
     #Clear the widgets, assign values from model to widgets and update auth
-    def _update_widgets(self):
+    def _update_view(self):
         self._clear_widgets()
-        self.gui.name_entry.insert(0, self.model.name)
-        self.gui.email_entry.insert(0, self.model.email)
-        self.gui.host_entry.insert(0, self.model.host)
-        self.gui.port_entry.insert(0, self.model.port)
-        self.gui.username_entry.insert(0, self.model.username)
-        self.gui.password_entry.insert(0, self.model.password)
+        self.view.name_entry.insert(0, self.model.name)
+        self.view.email_entry.insert(0, self.model.email)
+        self.view.host_entry.insert(0, self.model.host)
+        self.view.port_entry.insert(0, self.model.port)
+        self.view.username_entry.insert(0, self.model.username)
+        self.view.password_entry.insert(0, self.model.password)
         if (self.model.auth):
-            self.gui.auth_checkbox_checked.set(True)
+            self.view.auth_checkbox_checked.set(True)
         else:
-            self.gui.auth_checkbox_checked.set(False)
+            self.view.auth_checkbox_checked.set(False)
         self._update_login_entries_enabled()
-        
+
     #Clear all the entry widgets
     def _clear_widgets(self):
-        self.gui.name_entry.delete(0, END)
-        self.gui.email_entry.delete(0, END)
-        self.gui.host_entry.delete(0, END)
-        self.gui.port_entry.delete(0, END)
-        self.gui.subject_entry.delete(0, END)
-        self.gui.username_entry.delete(0, END)
-        self.gui.password_entry.delete(0, END)
-        
+        self.view.name_entry.delete(0, END)
+        self.view.email_entry.delete(0, END)
+        self.view.host_entry.delete(0, END)
+        self.view.port_entry.delete(0, END)
+        self.view.subject_entry.delete(0, END)
+        self.view.username_entry.delete(0, END)
+        self.view.password_entry.delete(0, END)
+
     #Assign values from entry widgets to model
     def _update_model(self):
-        self.model.name = self.gui.name_entry.get()
-        self.model.email = self.gui.email_entry.get()
-        self.model.host = self.gui.host_entry.get()
-        self.model.port = self.gui.port_entry.get()
-        self.model.username = self.gui.username_entry.get()
-        self.model.password = self.gui.password_entry.get()
-        self.model.auth = self.gui.auth_checkbox_checked.get()
-        self.model.subject = self.gui.subject_entry.get()
-        
+        self.model.name = self.view.name_entry.get()
+        self.model.email = self.view.email_entry.get()
+        self.model.host = self.view.host_entry.get()
+        self.model.port = self.view.port_entry.get()
+        self.model.username = self.view.username_entry.get()
+        self.model.password = self.view.password_entry.get()
+        self.model.auth = self.view.auth_checkbox_checked.get()
+        self.model.subject = self.view.subject_entry.get()
+
     #Enable or disable the login entries depending on model variable
     def _update_login_entries_enabled(self):
         if (self.model.auth):
-            self.gui.username_entry.configure(state='normal')
-            self.gui.password_entry.configure(state='normal')
+            self.view.username_entry.configure(state='normal')
+            self.view.password_entry.configure(state='normal')
         else:
-            self.gui.username_entry.configure(state='disabled')
-            self.gui.password_entry.configure(state='disabled')
-        
+            self.view.username_entry.configure(state='disabled')
+            self.view.password_entry.configure(state='disabled')
+
     #This function is given as command to auth_checkbox and is called when the checkbox is clicked
     def auth_checkbox_pressed(self):
         #Cannot call update() here because we need to update model before widgets
         self._update_model()
-        self._update_widgets()
+        self._update_view()
 
     def html_button_pressed(self):
         #TODO
@@ -169,12 +168,12 @@ class ViewModel():
         self.password = PASSWORD
         self.auth = AUTH_SMTP
         self.subject = ""
-    
-    
+
+
 #MAIN
 if __name__ == '__main__':
     presenter = Presenter()
-    gui = Gui(presenter)
-    presenter.set_gui(gui)
-    gui.init()
+    view = View(presenter)
+    presenter.set_view(view)
+    view.init()
 
