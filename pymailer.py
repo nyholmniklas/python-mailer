@@ -35,7 +35,7 @@ class PyMailer():
         number of failed recipients; and database used.
         """
         try:
-            stats_file = open(STATS_FILE, 'r')
+            stats_file = open(self.settings.stats_file, 'r')
         except IOError:
             raise IOError, "The stats file path is invalid."
 
@@ -54,7 +54,7 @@ class PyMailer():
         if not is_existing_entry:
             stats_entries.append(message)
 
-        stats_file = open(STATS_FILE, 'w')
+        stats_file = open(self.settings.stats_file, 'w')
         for entry in stats_entries:
             if entry:
                 stats_file.write("%s\n" % entry)
@@ -74,7 +74,7 @@ class PyMailer():
         Write failed recipient_data to csv file to be retried again later.
         """
         try:
-            csv_file = open(CSV_RETRY_FILENAME, 'wb+')
+            csv_file = open(self.settings.csv_retry_filename, 'wb+')
         except IOError:
             raise IOError, "The retry csv file path is invalid."
 
@@ -175,7 +175,7 @@ class PyMailer():
         if not recipient_list:
             recipient_list = self._parse_csv()
             if retry_count:
-                recipient_list = self._parse_csv(CSV_RETRY_FILENAME)
+                recipient_list = self._parse_csv(self.settings.csv_retry_filename)
 
         # save the number of recipient and time started to the stats file
         if not retry_count:
@@ -196,11 +196,11 @@ class PyMailer():
             sender = "%s <%s>" % (self.from_name, self.from_email)
 
             # init server
-            smtp_server = smtplib.SMTP(host=SMTP_HOST, port=SMTP_PORT)
+            smtp_server = smtplib.SMTP(host=self.settings.smtp_host, port=self.settings.smtp_port)
 
             # login if config variable AUTH_SMTP is True
-            if (AUTH_SMTP):
-                smtp_server.login(self.username, self.password)
+            if (self.settings.auth_smtp):
+                smtp_server.login(self.settings.username, self.settings.password)
 
             #send the actual email
             try:
@@ -220,7 +220,7 @@ class PyMailer():
                 self._stats("FAILED RECIPIENTS: %s" % failed_recipients)
 
     def send_test(self):
-        self.send(recipient_list=TEST_RECIPIENTS)
+        self.send(recipient_list=self.settings.test_recipients)
 
     def resend_failed(self):
         """
