@@ -92,8 +92,8 @@ class Presenter():
         self.gui = gui
         
     def update(self):
-        self._update_model()
         self._update_widgets()
+        self._update_model()
     
     #Clear the widgets, assign values from model to widgets and update auth
     def _update_widgets(self):
@@ -142,7 +142,9 @@ class Presenter():
         
     #This function is given as command to auth_checkbox and is called when the checkbox is clicked
     def auth_checkbox_pressed(self):
-        self.update()
+        #Cannot call update() here because we need to update model before widgets
+        self._update_model()
+        self._update_widgets()
 
     def html_button_pressed(self):
         #TODO
